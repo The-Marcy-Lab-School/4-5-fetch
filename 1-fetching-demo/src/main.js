@@ -12,7 +12,7 @@ dogButton.addEventListener('click', () => {
   // 2. Define promise handlers with .then and .catch
   fetchPromise
     .then((response) => {
-      // 3. Check that the response is ok. If it isn't throw a useful error.
+      // 3. Throw an error if the response fails
       if (!response.ok) {
         // Remember, this error is caught in the .catch() below
         throw Error(`Fetch failed. ${response.status} ${response.statusText}`)

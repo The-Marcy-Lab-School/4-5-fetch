@@ -42,6 +42,6 @@ img {
   width: 100%;
 }
 
-#dog-image-container {
-  width: 500px;
+.error {
+  color: red;
 }
