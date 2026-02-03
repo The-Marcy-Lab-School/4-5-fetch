@@ -1,8 +1,11 @@
-import './style.css'
+import { updateDogImage, updateError } from "./dom-helpers";
 
-const dogImage = document.querySelector('#dog-image');
+// A default URL to use if an error occurs
+const DEFAULT_DOG_SRC = "https://images.dog.ceo/breeds/entlebucher/n02108000_1948.jpg"
 
-const fetchNewDog = () => {
+// Fetch a dog when the button is clicked
+const dogButton = document.querySelector('#new-dog-image-button');
+dogButton.addEventListener('click', () => {
   // 1. Invoke fetch with an API endpoint. A promise is returned.
   const fetchPromise = fetch('https://dog.ceo/api/breeds/image/random');
 
@@ -11,6 +14,7 @@ const fetchNewDog = () => {
     .then((response) => {
       // 3. Check that the response is ok. If it isn't throw a useful error.
       if (!response.ok) {
+        // Remember, this error is caught in the .catch() below
         throw Error(`Fetch failed. ${response.status} ${response.statusText}`)
       }
 
@@ -20,20 +24,14 @@ const fetchNewDog = () => {
     })
     .then((responseBody) => {
       // 5. When the response body is read, do something with it!
-      // What you do will depend on the API you're using
-      // Here, the dog.ceo API puts the image src in the responseBody.message
-      dogImage.src = responseBody.message;
+      // You often will want to print out the responseBody to see its structure
+      console.log(responseBody);
+      const dogImageSrc = responseBody.message;
+      updateDogImage(dogImageSrc);
     })
     .catch((err) => {
       // 6. Handle Errors
-      console.error(err);
-    })
-}
-
-const main = () => {
-  document
-    .querySelector('#new-dog-image-button')
-    .addEventListener('click', fetchNewDog);
-}
-
-main();
+      updateDogImage(DEFAULT_DOG_SRC);
+      updateError(`An error occurred: ${err.message}`);
+    });
+});
