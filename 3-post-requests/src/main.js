@@ -36,7 +36,7 @@ const handleFormSubmit = (e) => {
   }
 
   // This is a good API to practice GET/POST/PATCH/DELETE requests
-  const url = 'https://reqres.in/api/users';
+  const url = 'https://dummyjson.com/users';
 
   // Notice that the options object is provided as the second arg to fetch
   fetch(url, options)
